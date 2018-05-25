@@ -1,5 +1,11 @@
-# fuber
-a fleet management taxi service
+# Fuber
+A fleet management taxi service that allow users to find taxi on demand
+
+## Getting Started
+
+To clone repository run `git clone https://github.com/Harsh0/fuber.git`
+
+then `cd fuber`
 
 To install all dependencies run `npm install`
 
@@ -7,9 +13,38 @@ To Start application run `npm start`
 
 Access the api from `http://localhost:8080/`
 
+## See all available Cabs on UI
+
+Go to [`http://localhost:8080/`](http://localhost:8080/cabs) on browser
 
 ## Get all available cabs
 To Get all available cabs [`GET /cabs`](http://localhost:8080/cabs)
+
+you will get response like below
+
+```
+[
+    {
+        "cabId": 1,
+        "latitude": 60.1575299,
+        "longitude": 29.8465101,
+        "color": "Aquamarine",
+        "earnedMoney": 0,
+        "status": "free"
+    },
+    {
+        "cabId": 2,
+        "latitude": 1.2255938,
+        "longitude": -77.6611917,
+        "color": "Turquoise",
+        "earnedMoney": 0,
+        "status": "free"
+    },
+    .
+    .
+    .
+]
+```
 
 ## Book a cab
 

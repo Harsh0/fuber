@@ -1,5 +1,64 @@
 <html>
+    <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    </head>
     <body>
-        Hello
+        <table class="table" id="cabs">
+            <thead>
+                <tr>
+                <th scope="col">CabId</th>
+                <th scope="col">Color</th>
+                <th scope="col">Latitude</th>
+                <th scope="col">Longitude</th>
+                <th scope="col">Status</th>
+                <th scope="col">Earned Money</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <script>
+            function ajax(config){
+                this.method = config.method || 'GET';
+                this.payload = config.payload || null;
+                var xhr = new XMLHttpRequest();
+                xhr.open(this.method, config.url, true);
+                if(this.method=="POST"){
+                    xhr.setRequestHeader("Content-Type","application/json");
+                }
+                xhr.addEventListener("load", function(){
+                    config.success(xhr);
+                });
+                xhr.addEventListener("error", config.error);
+                xhr.send(this.payload);
+            }
+            function renderCabs(data){
+                var table = document.getElementById('cabs');
+                while(table.rows.length>1){
+                    table.deleteRow(1);
+                }
+                let headers = ['cabId','color','latitude','longitude','status','earnedMoney'].reverse();
+                for(var i in data){
+                    let rdata = data[i];
+                    var row = table.insertRow(+i+1);
+                    for(var key of headers){
+                        var cell = row.insertCell(0);
+                        cell.innerHTML = rdata[key];
+                    }
+                }
+            }
+            function getdata(){
+                ajax({
+                    url: '/cabs',
+                    success: function(data){
+                        renderCabs(JSON.parse(data.response))
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                })
+            }
+            getdata()
+        </script>
     </body>
 </html>
