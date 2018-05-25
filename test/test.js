@@ -32,7 +32,8 @@ describe('Fuber', () => {
     describe('/GET find cab', () => {
         it('should find a cab nearest to person and assign', (done) => {
             chai.request(server)
-            .get(`/cabs/find?latitude=${34.23}&longitude=${12.45}&color='Pink'`)
+            .post(`/cabs/book`)
+            .send({ latitude: 34.23, longitude: 12.45, color: 'Pink' })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.color.should.be.a('string');
@@ -52,7 +53,8 @@ describe('Fuber', () => {
             .send({ latitude: 38, longitude: 67, rideId: rideId})
             .end((err, res) => {
                 res.should.have.status(200);
-                res.body.cost.should.be.equal(103);
+                //approximate cost for test case
+                res.body.cost.should.be.equal(130);
                 res.body.message.should.be.a('string');
                 done()
             })

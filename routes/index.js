@@ -27,12 +27,10 @@ router.get('/cabs', (req, res, next) => {
     res.json(cabs);
 });
 
-router.get('/cabs/find', (req, res, next) => {
+router.post('/cabs/book', (req, res, next) => {
     try{
         //extract latitude, longitude and color from querystring
-        let { latitude, longitude, color } = req.query;
-        latitude = +latitude;
-        longitude = +longitude;
+        let { latitude, longitude, color } = req.body;
         let cabsArray = [].concat(cabs);
         cabsArray = cabsArray.filter(e => {
             return (color=='Pink'?e.color=='Pink':true)&&e.status=='free';
@@ -54,6 +52,7 @@ router.get('/cabs/find', (req, res, next) => {
             rides.set(rideId, ride);
             cabToBeAssigned =  Object.assign({},cabToBeAssigned)
             cabToBeAssigned.rideId = rideId;
+            delete cabToBeAssigned.earnedMoney;
             cabToBeAssigned.distance =  cabsArray[0].calculateDistance(latitude,longitude)
             res.json(cabToBeAssigned);
         }else{
