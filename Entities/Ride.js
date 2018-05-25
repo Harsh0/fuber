@@ -15,7 +15,7 @@ class Ride{
     }
     endRide(latitude, longitude){
         if(this.endTime){
-            throw new Error('ride has already been ended!');
+            throw new Error('Ride has already been ended!');
         }
         this.endTime = Date.now();
         this.endLocation = {

@@ -10,7 +10,7 @@ class Cab{
     calculateDistance(latitude, longitude){
         return + Math.sqrt(
             Math.pow(this.latitude - latitude, 2)
-            + Math.pow(this.longitude - longitude)
+            + Math.pow(this.longitude - longitude, 2)
         ).toFixed(2);
     }
 }
