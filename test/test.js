@@ -14,7 +14,7 @@ describe('Fuber', () => {
      * @description Test the /GET cab route 
      */
     describe('/GET cabs',() => {
-        it('it should GET all the cabs', (done) => {
+        it('should GET all the cabs', (done) => {
             chai.request(server)
             .get('/cabs')
             .end((err, res) => {
@@ -24,6 +24,16 @@ describe('Fuber', () => {
             });
         });
     });
+
+    describe('/GET find cab', () => {
+        it('should find a cab nearest to person', (done) => {
+            chai.request(server)
+            .get(`/cabs/find?latitude=${34.23}&longitude=${12.45}&color='Pink'`)
+            .end((err, res) => {
+                res.should.have.status(200);
+            })
+        })
+    })
     after((done)=>{
         done();
     });
