@@ -15,7 +15,7 @@ Access the api from `http://localhost:8080/`
 
 ## See all available Cabs on UI
 
-Go to [`http://localhost:8080/`](http://localhost:8080/cabs) on browser
+Go to [`http://localhost:8080/`](http://localhost:8080/) on browser
 
 ## Get all available cabs
 To Get all available cabs [`GET /cabs`](http://localhost:8080/cabs)
