@@ -3,6 +3,8 @@ class Cab{
         this.latitude = latitude;
         this.longitude = longitude;
         this.color = color;
+        this.earnedMoney = 0;
+        this.status = 'free';//'assigned' if assigned to customer
     }
     calculateDistance(latitude, longitude){
         return + Math.sqrt(

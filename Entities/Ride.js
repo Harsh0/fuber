@@ -3,6 +3,7 @@ class Ride{
     constructor(cab, latitude, longitude){
         //start the ride
         this.cab = cab;
+        this.cab.status = 'assigned';
         this.startLocation = {
             latitude,
             longitude
@@ -32,6 +33,10 @@ class Ride{
         //set the location of cab to new latitude and longitude
         this.cab.latitude = latitude;
         this.cab.longitude = longitude;
+        //free the cab to be used by other people
+        this.cab.status = 'free';
+        //add earned money to cab
+        this.cab.earnedMoney += this.cost;
         //return ride cost
         return this.cost;
     }   
