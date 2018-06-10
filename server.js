@@ -12,11 +12,12 @@ const routes = require('./routes');
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 
+//logger added
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
+//register all routes
 app.use('/', routes);
 
 app.use(function(req, res, next) {

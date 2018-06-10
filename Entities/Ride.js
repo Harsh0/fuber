@@ -16,5 +16,4 @@ class Ride{
     }
 }
 
-
 module.exports = Ride;

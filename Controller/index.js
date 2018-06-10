@@ -1,3 +1,4 @@
+'use strict';
 let cabs = require('../Data/cabs.json');
 
 let rides = new Map();

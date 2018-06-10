@@ -1,3 +1,5 @@
+'use strict';
+ 
 const Cab = require('../Entities/Cab');
 const Ride = require('../Entities/Ride');
 
