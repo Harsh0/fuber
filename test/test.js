@@ -29,6 +29,46 @@ describe('Fuber', () => {
     });
 
     /**
+     * @description Test the /GET find cab route while passing wrong latutude longitude value
+     */
+    describe('/GET find cab wrong latitude longitude value', () => {
+        it('should throw error as passing latitude value as string', (done) => {
+            chai.request(server)
+            .post(`/cabs/book`)
+            .send({ latitude: 'wrong', longitude: 12.45, color: 'Pink' })
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.error.should.be.a('string')
+                res.body.error.should.be.equal('latitude and longitude should be number')
+                done();
+            })
+        })
+        it('should throw error as passing wrong latitude value', (done) => {
+            chai.request(server)
+            .post(`/cabs/book`)
+            .send({ latitude: 134.23, longitude: 12.45, color: 'Pink' })
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.error.should.be.a('string')
+                res.body.error.should.be.equal('latitude range from -90 to +90')
+                done();
+            })
+        })
+        it('should throw error as passing wrong longitude value', (done) => {
+            chai.request(server)
+            .post(`/cabs/book`)
+            .send({ latitude: 14.23, longitude: 222.45, color: 'Pink' })
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.error.should.be.a('string')
+                res.body.error.should.be.equal('longitude range from -180 to +180')
+                done();
+            })
+        })
+    })
+
+
+    /**
      * @description Test the /GET find cab route 
      */
     describe('/GET find cab', () => {
@@ -85,11 +125,38 @@ describe('Fuber', () => {
             })
         })
     })
+    
+    /**
+     * @description Test the /GET find cab route 
+     */
+    describe('/GET find cab', () => {
+        it('should find a non Pink cab nearest to person and assign as all Pink cabs are booked', (done) => {
+            chai.request(server)
+            .post(`/cabs/book`)
+            .send({ latitude: 34.23, longitude: 12.45 })
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.rideId.should.be.a('string');
+                res.body.cab.should.be.a('object');
+                res.body.cab.cabId.should.be.a('number');
+                res.body.cab.status.should.be.equal('assigned');
+                res.body.cab.color.should.be.a('string');
+                res.body.startLocation.should.be.a('object');
+                res.body.startLocation.should.be.a('object');
+                res.body.startLocation.latitude.should.be.equal(34.23);
+                res.body.startLocation.longitude.should.be.equal(12.45);
+                res.body.distance.should.be.a('number');
+                rideId = res.body.rideId;
+                done();
+            })
+        })
+    })
 
-      /**
+    /**
      * @desc Test the /Get find cab route when all other cabs are booked
      */
     describe('/Get find Cab', () => {
+        //book all other cabs
         before((done) => {
             // book all Pink cab
             let bookCab = () => {
@@ -121,19 +188,41 @@ describe('Fuber', () => {
      * @description Test the /POST end ride route 
      */
     describe('/POST end ride', () => {
+        it('should throw error for passing wrong ride id', (done) => {
+            chai.request(server)
+            .post(`/ride/end`)
+            .send({ latitude: 38, longitude: 67, rideId: '4367890876'})
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.error.should.be.a('string')
+                res.body.error.should.be.equal('Ride doesnt exist with rideId')
+                done();
+            })
+        })
         it('should end the ride', (done) => {
             chai.request(server)
             .post(`/ride/end`)
             .send({ latitude: 38, longitude: 67, rideId: rideId})
             .end((err, res) => {
                 res.should.have.status(200);
-                //approximate cost for test case
+                res.body.cost.should.be.a('number')
                 res.body.message.should.be.a('string');
-                done()
+                done();
+            })
+        })
+        it('should throw error to end the same ride', (done) => {
+            chai.request(server)
+            .post(`/ride/end`)
+            .send({ latitude: 38, longitude: 67, rideId: rideId})
+            .end((err, res) => {
+                res.should.have.status(400);
+                //approximate cost for test case
+                res.body.error.should.be.a('string');
+                res.body.error.should.be.equal('Ride has already been ended!');
+                done();
             })
         })
     })
-
     after((done)=>{
         done();
     });

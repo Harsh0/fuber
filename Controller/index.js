@@ -73,7 +73,7 @@ exports.EndRide = (req, res, next) => {
             }
         }else{
             res.status(400).json({
-                message: 'Ride doesnt exist with rideId'
+                error: 'Ride doesnt exist with rideId'
             });
         }
     }catch(err){

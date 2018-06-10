@@ -68,12 +68,22 @@ you will get a response like below
 
 ```
 {
-    "cabId": 15,
-    "latitude": 31.988669,
-    "longitude": 100.682238,
-    "color": "Pink",
-    "status": "assigned",
-    "rideId": "yRR4VSTG3cf3YlCN7K8Z",
+    "rideId": "MQ4SRWBl9UjmcZIae6fx",
+    "cab": {
+        "cabId": 15,
+        "latitude": 31.988669,
+        "longitude": 100.682238,
+        "color": "Pink",
+        "status": "assigned"
+    },
+    "startLocation": {
+        "latitude": 12.6587,
+        "longitude": 67.876
+    },
+    "startTime": 1528627519144,
+    "endTime": null,
+    "endLocation": null,
+    "cost": 0,
     "distance": 38.08
 }
 ```
@@ -86,7 +96,7 @@ To end a ride [`POST /ride/end`](http://localhost:8080/ride/end) with body
 {
     "latitude": 62.6587,
     "longitude": 27.876,
-    "rideId": "yRR4VSTG3cf3YlCN7K8Z"
+    "rideId": "MQ4SRWBl9UjmcZIae6fx"
 }
 ```
 
@@ -94,7 +104,7 @@ you will get the response like below
 
 ```
 {
-    "message": "Ride ended successfully, Please pay 120 dogecoin to driver",
-    "cost": 120
+    "message": "Ride ended successfully, Please pay 136 dogecoin to driver",
+    "cost": 136
 }
 ```
