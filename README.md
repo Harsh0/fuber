@@ -1,6 +1,10 @@
 # Fuber
 A fleet management taxi service that allow users to find taxi on demand
 
+## Disclaimer
+
+A lot of things has not been impletemented and not taken into consideration like ride listing , notification to driver when ride requested etc as not part of problem statement
+
 ## Getting Started
 
 To clone repository run `git clone https://github.com/Harsh0/fuber.git`
@@ -8,6 +12,8 @@ To clone repository run `git clone https://github.com/Harsh0/fuber.git`
 then `cd fuber`
 
 To install all dependencies run `npm install`
+
+To Test application run `npm test`
 
 To Start application run `npm start`
 
